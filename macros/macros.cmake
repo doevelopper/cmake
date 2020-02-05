@@ -1,4 +1,4 @@
-#       levitics-arkhe-gcs/src/main/resources/config/macros/macros.cmake
+#        macros/macros.cmake
 #
 #               Copyright (c) 2014-2018  A.H.L
 #
