@@ -57,7 +57,7 @@ function(add_feature_test_command TARGET_NAME BASE_DIRECTORY)
 				${BASE_DIRECTORY}
 
 			COMMENT
-			    "Run ${TARGET_NAME} integration test."
+                "Run ${PROJECT_NAME} integration test."
 		)
 
     else(CUCUMBER_RUBY)
