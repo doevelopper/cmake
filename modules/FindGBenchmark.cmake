@@ -1,0 +1,38 @@
+
+find_path(BENCHMARK_INCLUDE_DIR 
+    NAMES 
+        benchmark/benchmark.h 
+    HINTS 
+        ${CMAKE_INSTALL_INCLUDEDIR}
+        ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+find_library(BENCHMARK_LIBRARY 
+    NAMES 
+        libbenchmark.a libbenchmark benchmark.a benchmark 
+    HINTS 
+        ${CMAKE_INSTALL_LIBDIR}
+)
+
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(BENCHMARK
+  REQUIRED_VARS BENCHMARK_LIBRARY BENCHMARK_INCLUDE_DIR
+)
+
+if(BENCHMARK_FOUND)
+    set(BENCHMARK_LIBRARIES ${BENCHMARK_LIBRARY})
+    set(BENCHMARK_INCLUDE_DIRS ${BENCHMARK_INCLUDE_DIR})
+
+    if(NOT TARGET BENCHMARK::BENCHMARK)
+
+        add_library(BENCHMARK::BENCHMARK UNKNOWN IMPORTED)
+
+        set_target_properties(BENCHMARK::BENCHMARK PROPERTIES
+            IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
+            IMPORTED_LOCATION "${BENCHMARK_LIBRARY}"
+            INTERFACE_INCLUDE_DIRECTORIES "${BENCHMARK_INCLUDE_DIRS}")
+    endif()
+endif()
+
+mark_as_advanced(BENCHMARK_INCLUDE_DIR BENCHMARK_LIBRARY)

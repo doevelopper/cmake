@@ -1,0 +1,56 @@
+find_library(EXPAT_LIBRARY 
+    NAMES
+        libexpat expat #expat.d libexpat libexpat.d
+    HINTS 
+        /opt/dds/lib
+#        ${CMAKE_INSTALL_PREFIX}/lib
+#    NO_DEFAULT_PATH
+)
+
+find_path(EXPAT_INCLUDE_DIR
+    NAMES
+        expat.h    
+    HINTS
+        /opt/dds/include
+#        ${CMAKE_INSTALL_INCLUDEDIR}/include
+)
+
+#find_program(EXPAT_EXECUTABLE 
+#            NAMES xmlwf
+#            PATHS /usr/local/apr/bin  
+#)
+
+#get_filename_component(EXPAT_LIBRARY_DIRS ${EXPAT_LIBRARY} PATH)
+#get_filename_component(EXPAT_BINARY_PATH ${EXPAT_EXECUTABLE} PATH)
+
+#message(STATUS "EXPAT_LIBRARY ${EXPAT_LIBRARY}")
+#message(STATUS "EXPAT_INCLUDE_DIR ${EXPAT_INCLUDE_DIR}")
+
+#message(STATUS "EXPAT_EXECUTABLE ${EXPAT_EXECUTABLE}")
+#message(STATUS "EXPAT_LIBRARY_DIRS ${EXPAT_LIBRARY_DIRS}")
+#message(STATUS "EXPAT_BINARY_PATH ${EXPAT_BINARY_PATH}")
+
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Expat 
+    REQUIRED_VARS 
+        EXPAT_LIBRARY EXPAT_INCLUDE_DIR
+#    DEFAULT_MSG EXPAT_LIBRARY
+
+) # EXPAT_EXECUTABLE)
+
+if(EXPAT_FOUND)
+  set(EXPAT_LIBRARIES ${EXPAT_LIBRARY})
+  set(EXPAT_INCLUDE_DIRS ${EXPAT_INCLUDE_DIR})
+
+  if(NOT TARGET EXPAT::EXPAT)
+    add_library(EXPAT::EXPAT UNKNOWN IMPORTED)
+    set_target_properties(EXPAT::EXPAT PROPERTIES
+      IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
+      IMPORTED_LOCATION "${EXPAT_LIBRARY}"
+      INTERFACE_INCLUDE_DIRECTORIES "${EXPAT_INCLUDE_DIRS}")
+  endif()
+endif()
+
+mark_as_advanced(EXPAT_INCLUDE_DIR EXPAT_LIBRARY)
+
