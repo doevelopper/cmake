@@ -83,6 +83,32 @@ if(NOT TARGET rmproper)
     )
 endif()
 
+
+if(NOT TARGET style)
+    add_custom_target(style
+        COMMENT "Prettying source code with uncrustify"
+    )
+endif()
+
+if(NOT TARGET cyclomatic)
+    add_custom_target(cyclomatic
+        COMMENT "Cyclomatic Complexity Analyzer."
+    )
+endif()
+
+if(NOT TARGET cppcheck)
+    add_custom_target(cppcheck
+        COMMENT "Static code analysis."
+    )
+endif()
+
+if(NOT TARGET linter)
+    add_custom_target(linter
+        COMMENT "Check the C++ source code to analyze it for syntax errors and other faults."
+    )
+endif()
+
+
 if(NOT TARGET site)
     add_custom_target(site
         COMMAND :
