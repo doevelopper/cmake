@@ -83,6 +83,12 @@ if(NOT TARGET rmproper)
     )
 endif()
 
+if(NOT TARGET memory-check)
+    add_custom_target(memory-check
+        COMMENT "Prettying source code with uncrustify"
+    )
+endif()
+
 
 if(NOT TARGET style)
     add_custom_target(style
