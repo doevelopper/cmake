@@ -103,17 +103,17 @@ function(add_cppcheck_analysis_command target_name bin_folder)
                 COMMAND
                     ${CMAKE_COMMAND} -E make_directory ${WORKING_DIR}
                 COMMAND
-                    ${CPPCHECK} ${CPPCHECK_OPTIONS} ${CPPCHECK_TEMPLATE_ARG} ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
-                        --cppcheck-build-dir=${WORKING_DIR} 2> ${WORKING_DIR}/cppcheck.xml
+                    ${CPPCHECK} ${CPPCHECK_OPTIONS} ${CPPCHECK_TEMPLATE_ARG} --project=${CMAKE_BINARY_DIR}/compile_commands.json  #${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
+                    --cppcheck-build-dir=${WORKING_DIR} 2> ${WORKING_DIR}/${PROJECT_NAME}-cppcheck.xml
                 COMMAND
-                    ${PYTHON_EXECUTABLE} ${CPPCHECK_HTMLREPORT_GENERATOR} --title=${target_name} --file=${WORKING_DIR}/cppcheck.xml
+                ${PYTHON_EXECUTABLE} ${CPPCHECK_HTMLREPORT_GENERATOR} --title=${target_name} --file=${WORKING_DIR}/${PROJECT_NAME}-cppcheck.xml
                         --source-dir=${bin_folder} --report-dir=${WORKING_DIR}
                 WORKING_DIRECTORY
                         ${bin_folder}
                 DEPENDS
                      ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
                 COMMENT
-                     "[CPPCheck Static Code Analysis] ${bin_folder}"
+                     "[CPPCheck Static Code Analysis] ${PROJECT_NAME}"
         )
         else(CPPCHECK)
 #            add_custom_target( ${target_name}-cppcheck

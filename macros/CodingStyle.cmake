@@ -47,5 +47,8 @@ function(apply_style_targets_command TARGET_NAME BASE_DIRECTORY)
             COMMAND ${CMAKE_COMMAND} -E echo "[---SKIPPED---] Code formating not applied"
         )
     endif(UNCRUSTIFY)
+
+    #add_dependencies(${TARGET_NAME} style)
+
 endfunction()
 

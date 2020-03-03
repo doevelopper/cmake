@@ -32,7 +32,7 @@ set(CUCUMBER_BOOST_LIBBRARIES
 #    assign
     filesystem
 #    multi_array
-    signals
+#    signals
 )
 
 find_package(Boost COMPONENTS ${CUCUMBER_BOOST_LIBBRARIES} REQUIRED QUIET
@@ -42,7 +42,7 @@ find_package(Boost COMPONENTS ${CUCUMBER_BOOST_LIBBRARIES} REQUIRED QUIET
 if(Boost_FOUND)
 
     find_path(CUCUMBER_INCLUDE_DIR cucumber-cpp/autodetect.hpp
-        HINTS 
+        HINTS
             /usr/local/include
     )
 
@@ -50,13 +50,13 @@ if(Boost_FOUND)
     list(APPEND CUCUMBER_NO_MAIN_NAMES cucumber-cpp-nomain libcucumber-cpp-nomain)
 
 
-    find_library(CUCUMBER_LIBRARY 
+    find_library(CUCUMBER_LIBRARY
         NAMES ${CUCUMBER_NAMES}
-        HINTS 
+        HINTS
             /usr/local/lib
     )
 
-    find_library(CUCUMBER_NO_MAIN_LIBRARY 
+    find_library(CUCUMBER_NO_MAIN_LIBRARY
         NAMES ${CUCUMBER_NO_MAIN_NAMES}
         HINTS /usr/local/lib
     )

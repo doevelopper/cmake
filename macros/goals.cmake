@@ -83,6 +83,37 @@ if(NOT TARGET rmproper)
     )
 endif()
 
+
+if(NOT TARGET style)
+    add_custom_target(style
+        COMMAND :
+        COMMENT "Prettying source code with uncrustify"
+    )
+endif()
+
+if(NOT TARGET cyclomatic)
+    add_custom_target(cyclomatic
+        COMMAND :
+        COMMENT "Cyclomatic Complexity Analyzer."
+    )
+endif()
+
+# if(NOT TARGET cppcheck)
+    # add_custom_target(cppcheck
+        # COMMAND :
+        # COMMENT "Static code analysis."
+        ## DEPENDS linter
+    # )
+# endif()
+
+# if(NOT TARGET linter)
+    # add_custom_target(linter
+        # COMMAND :
+        # COMMENT "Check the C++ source code to analyze it for syntax errors and other faults."
+        ##DEPENDS cyclomatic
+    # )
+# endif()
+
 if(NOT TARGET site)
     add_custom_target(site
         COMMAND :
@@ -105,7 +136,7 @@ if(NOT TARGET site-deploy)
     add_custom_target(site-deploy
         COMMAND :
         COMMENT "Deploy the generated site documentation to the specified web server."
-        DEPENDS site
+        # DEPENDS site
     )
 endif()
 
@@ -140,7 +171,7 @@ if(NOT TARGET unit-test)
     add_custom_target(unit-test test
         COMMAND :
         COMMENT "Run tests using a suitable unit testing framework. These tests should not require the code be packaged or deployed."
-        DEPENDS test-compile
+        # DEPENDS test-compile
     )
 endif()
 
@@ -149,7 +180,7 @@ if(NOT TARGET pack)
     add_custom_target(pack
         COMMAND :
         COMMENT "Take the compiled code and package it in its distributable format, such as a ZIP."
-        DEPENDS unit-test
+        # DEPENDS unit-test
     )
 
     add_custom_command(TARGET pack
@@ -163,7 +194,7 @@ if(NOT TARGET integration-test)
     add_custom_target(integration-test
         COMMAND :
         COMMENT "Process and deploy the package if necessary into an environment where integration tests can be run."
-        DEPENDS pack
+        # DEPENDS pack
     )
 
     add_custom_command(TARGET integration-test
@@ -185,7 +216,7 @@ if(NOT TARGET verify)
     add_custom_target(verify
         COMMAND :
         COMMENT "Rrun any checks to verify the package is valid and meets quality criteria."
-        DEPENDS integration-test
+        # DEPENDS integration-test
     )
 endif()
 
@@ -193,7 +224,7 @@ if(NOT TARGET do-install)
     add_custom_target( do-install
         COMMAND :
         COMMENT "Install the package into the local repository, for use as a dependency in other projects locally."
-        DEPENDS verify
+        # DEPENDS verify
     )
 endif()
 
@@ -201,7 +232,7 @@ if(NOT TARGET deploy)
     add_custom_target( deploy
         COMMAND :
         COMMENT "Integration or release environment, copies the final package to the remote repository for sharing with other developers and projects."
-        DEPENDS verify
+        # DEPENDS verify
     )
 endif()
 
