@@ -204,9 +204,9 @@ function(add_code_linter_command target_name src_folder top_level_directory)
                 COMMAND
                     ${CMAKE_COMMAND} -E make_directory ${WORKING_DIR}
 
-                COMMAND 
+                COMMAND
                     ${PYTHON_EXECUTABLE} --version
-                COMMAND 
+                COMMAND
                     ${PYTHON_EXECUTABLE} ${LINT_WRAPPER}
                         --cpplint-file=${LINT_SCRIPT}
                         --history-file=${WORKING_DIR}/lint_history
@@ -228,16 +228,16 @@ function(add_code_linter_command target_name src_folder top_level_directory)
                         --root=cppbdd101
                         ${src_folder} > ${WORKING_DIR}/lint.xml 2>&1
 
-                WORKING_DIRECTORY 
+                WORKING_DIRECTORY
                     ${WORKING_DIR}
 
-                COMMENT 
+                COMMENT
                     "[C++ style guide checker-linter] ${target_name} ${src_folder}"
             )
         else(PYTHONINTERP_FOUND)
 #            add_custom_target( ${target_name}-lint
             add_custom_command(TARGET ${target_name} PRE_BUILD
-                COMMAND 
+                COMMAND
                     ${CMAKE_COMMAND} -E echo "[---SKIPPED---] CPPCheck  Static Code analysis! Python interp missing"
         )
         endif(PYTHONINTERP_FOUND)

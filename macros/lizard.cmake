@@ -24,8 +24,8 @@ function(add_cyclomatic_complexity_analyzer target_name bin_folder)
 			set(WORKING_DIR "${CMAKE_INSTALL_PREFIX}/qa/metrics/${target_name}")
             file(MAKE_DIRECTORY ${WORKING_DIR})
             add_custom_target(${target_name}-cyclomatic 
-                COMMAND ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --html > ${WORKING_DIR}/lizard.html
-#                COMMAND ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --xml  > ${WORKING_DIR}/lizard.xml
+                COMMAND ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --html > ${WORKING_DIR}/${PROJECT_NAME}-lizard.html
+#                COMMAND ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --xml  > ${WORKING_DIR}/${PROJECT_NAME}-lizard.xml
                 WORKING_DIRECTORY ${WORKING_DIR}
                 COMMENT "[Code metrics analyser]: ${target_name}"
             )
@@ -52,9 +52,9 @@ function(add_cyclomatic_complexity_analyzer_command target_name bin_folder)
                     ${CMAKE_COMMAND} -E make_directory ${WORKING_DIR}
 
                 COMMAND 
-                    ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --html > ${WORKING_DIR}/lizard.html
+                    ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --html > ${WORKING_DIR}/${PROJECT_NAME}-lizard.html
 
-#                COMMAND ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --xml  > ${WORKING_DIR}/lizard.xml
+#                COMMAND ${PYTHON_EXECUTABLE} ${LIZARD_SCRIPT} ${LIZARD_OPTIONS} ${bin_folder} --xml  > ${WORKING_DIR}/${PROJECT_NAME}-lizard.xml
 
                 WORKING_DIRECTORY 
                    ${WORKING_DIR}
@@ -65,7 +65,6 @@ function(add_cyclomatic_complexity_analyzer_command target_name bin_folder)
     else(PYTHONINTERP_FOUND)
          add_custom_command(TARGET ${target_name}
             PRE_BUILD
-
             COMMAND 
                 ${CMAKE_COMMAND} -E echo "[---SKIPPED---] CPPCheck  Static Code analysis! Python interp missing"
         )

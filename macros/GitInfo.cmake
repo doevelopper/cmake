@@ -24,36 +24,19 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/.git)
         find_package(Git QUIET)
     endif()
     if(GIT_FOUND)
-		# Gets the current Git branch.
-	  e	xecute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
-					  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} 
-					  OUTPUT_VARIABLE PROJECT_BRANCH OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-        # Gets the current Git commit.
         execute_process( COMMAND "${GIT_EXECUTABLE}" rev-parse --short HEAD
                          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                          OUTPUT_VARIABLE GIT_REVISION OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-        # Gets the current Git description of HEAD, including the working tree state, and long format description.
         execute_process( COMMAND "${GIT_EXECUTABLE}" describe --long --tags --dirty --always
                          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                          OUTPUT_VARIABLE GIT_STATE OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET)
-		execute_process(COMMAND ${GIT_EXECUTABLE} describe --dirty --long --always
-						  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-						  OUTPUT_VARIABLE PROJECT_DESCRIPTION
-						  OUTPUT_STRIP_TRAILING_WHITESPACE)
-		# Remove the commit hash (and trailing "-0" if needed) from the description.
-		string(REGEX REPLACE "(-0)?-[^-]+((-dirty)?)$" "\\2"
-				 PROJECT_DESCRIPTION "${PROJECT_DESCRIPTION}")
-
         execute_process( COMMAND "${GIT_EXECUTABLE}" config --get remote.origin.url
                          OUTPUT_VARIABLE GIT_ORIGIN_URL OUTPUT_STRIP_TRAILING_WHITESPACE
                          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-
         execute_process( COMMAND "${GIT_EXECUTABLE}" config --get remote.root.url
                          OUTPUT_VARIABLE GIT_ROOT_URL OUTPUT_STRIP_TRAILING_WHITESPACE
                          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-
         execute_process( COMMAND "${GIT_EXECUTABLE}" branch --contains HEAD
                          OUTPUT_VARIABLE GIT_BRANCH OUTPUT_STRIP_TRAILING_WHITESPACE
                          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})

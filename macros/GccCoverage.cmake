@@ -35,7 +35,7 @@ set(LCOV_EXTRA_ARGS
 set(GENHTML_EXTRA_ARGS --show-details --frames --legend
     --branch-coverage --function-coverage --sort
     --demangle-cpp
-    --title "${PROJECT_NAME} Coverage Report"
+    --title "${PROJECT_NAME}"
 )
 
 function(add_code_coverage_targets test_target module_name module_directory)
