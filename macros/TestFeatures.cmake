@@ -44,7 +44,7 @@ function(add_feature_test_command TARGET_NAME BASE_DIRECTORY)
 
 			COMMAND
 				${CUCUMBER_RUBY} ${FEATURE_TEST_FORMAT} ${FEATURE_TEST_OPTION}
-					--out ${CMAKE_INSTALL_PREFIX}/qa/atp/${TARGET_NAME}.feature-tests-report.html
+                --out ${CMAKE_INSTALL_PREFIX}/qa/atp/${PROJECT_NAME}.Features-Test-Report.html
 					--strict ${BASE_DIRECTORY}/features
 
 			COMMAND
@@ -57,7 +57,7 @@ function(add_feature_test_command TARGET_NAME BASE_DIRECTORY)
 				${BASE_DIRECTORY}
 
 			COMMENT
-			    "Run ${TARGET_NAME} integration test."
+                "Run ${PROJECT_NAME} integration test."
 		)
 
     else(CUCUMBER_RUBY)
@@ -81,7 +81,7 @@ function(add_feature_test_target TARGET_NAME BASE_DIRECTORY)
 
 			COMMAND
 				 ${CUCUMBER_RUBY} ${FEATURE_TEST_FORMAT} ${FEATURE_TEST_OPTION}
-					--out ${CMAKE_INSTALL_PREFIX}/qa/atp/${TARGET_NAME}.feature-tests-report.html
+					--out ${CMAKE_INSTALL_PREFIX}/qa/atp/${PROJECT_NAME}.feature-tests-report.html
 					--strict ${BASE_DIRECTORY}/features
 
 			WORKING_DIRECTORY
